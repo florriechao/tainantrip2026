@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="12/12–12/14 台南三日行程：婚禮、府城古蹟、安平與回程">
+<meta property="og:title" content="台南婚禮小旅行">
+<meta property="og:description" content="12/12–12/14 台南三日行程">
+<meta name="theme-color" content="#F8F0DC">
+<title>台南婚禮小旅行</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Potta+One&text=%E5%8F%B0%E5%8D%97%E5%A9%9A%E7%A6%AE%E5%B0%8F%E6%97%85%E8%A1%8C&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap">
+<style>
+/* Layout: 一欄式行程表，每天一張「日卡」，行程列 = 時間｜景點｜做什麼，交通以虛線連接器夾在兩站之間 */
+:root{
+  /* 臺南400 代表色（取自《臺南400視覺識別系統使用指南》p.11） */
+  --red:#96423E;         /* 主色．臺南孔廟紅色 C30 M90 Y80 K20 / PANTONE 193C */
+  --sand:#EFDDAC;        /* 主色．臺南鯤鯓沙白色 C5 M15 Y40 K0 / PANTONE 1345C */
+  --orange:#DC7842;      /* 副色．鳳凰花橘色 C0 M70 Y90 K0 / PANTONE 165C */
+  --blue:#344489;        /* 副色．藍晒圖藍色 C95 M85 Y10 K0 / PANTONE 300C */
+
+  --bg:#F8F0DC;          /* 鯤鯓沙白淡化，當頁面底色 */
+  --surface:#FFFCF4;
+  --head:#EFDDAC;        /* 表頭用沙白原色 */
+  --ink:#2B211D;
+  --muted:#7A6656;
+  --line:#EADCB8;
+  --brick:var(--red);
+  --brick-soft:#F4E1DA;
+  --indigo:var(--blue);
+  --indigo-soft:#E3E6F3;
+  --gold:var(--orange);
+  --gold-soft:#FBE6D8;
+  --on-brick:var(--sand);
+  /* 語意 token：各配色方案只改這一層 */
+  --accent:var(--brick);
+  --chip-bg:var(--brick);--chip-fg:var(--on-brick);
+  --dot-food:var(--brick);--dot-sight:var(--indigo);--dot-stay:var(--gold);--dot-train:var(--indigo);
+  --stay-ring:transparent;
+  --stripe:var(--bg);
+  --train-bg:var(--indigo-soft);--train-fg:var(--indigo);
+  --wed-bg:var(--brick-soft);--wed-fg:var(--brick);--wed-text:var(--ink);--wed-dot:var(--brick);
+  --f-display:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --f-body:var(--f-display);
+  --f-brush:"Potta One","Noto Serif TC",serif;
+  --f-mono:var(--f-display);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:880px;margin:0 auto}
+
+/* header */
+header.top{padding-block:36px 20px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase}
+h1{font-family:var(--f-brush);font-weight:400;font-size:clamp(36px,8vw,56px);line-height:1.15;letter-spacing:.02em;margin:8px 0 0;text-wrap:balance}
+.tabs a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* day tabs */
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;display:flex;gap:8px;overflow-x:auto;border-bottom:1px solid var(--line)}
+.tabs a{flex:0 0 auto;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:7px 16px;display:flex}
+.tabs a b{font-family:var(--f-mono);font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.1em}
+.tabs a:hover{border-color:var(--accent)}
+
+/* day section */
+section.day{margin-top:32px;scroll-margin-top:64px}
+.day-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;padding-bottom:12px}
+.day-no{font-family:var(--f-mono);font-weight:700;font-size:13px;letter-spacing:.12em;color:var(--chip-fg);background:var(--chip-bg);border-radius:6px;padding:3px 9px}
+.day-date{font-family:var(--f-display);font-weight:700;font-size:22px}
+.day-title{font-size:16px;color:var(--muted);font-weight:400;min-width:0}
+
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.cols,.row{display:grid;grid-template-columns:128px minmax(0,1fr) minmax(0,1.25fr);gap:16px;padding:12px 18px}
+.cols{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;color:var(--muted);background:var(--head);border-bottom:1px solid var(--line)}
+.row{position:relative;align-items:start}
+.row + .row{border-top:1px solid var(--line)}
+.time{font-family:var(--f-mono);font-weight:400;font-size:13.5px;font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:14px;position:relative}
+.time::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;border-radius:50%;background:var(--muted)}
+.place{font-weight:700;font-size:15.5px;min-width:0}
+.place .alt{display:block}
+.do{min-width:0}
+.do span{display:block}
+
+/* kinds */
+.row.train{background:var(--train-bg)}
+.row.train .time::before{background:var(--dot-train);border-radius:2px}
+.row.train .place{color:var(--train-fg)}
+.row.stay .time::before{background:var(--dot-stay);box-shadow:0 0 0 1.5px var(--stay-ring)}
+.row.food .time::before{background:var(--dot-food)}
+.row.sight .time::before{background:var(--dot-sight)}
+.row.wedding{background:var(--wed-bg);color:var(--wed-text)}
+.row.wedding .time{color:inherit}
+.row.wedding .time::before{background:var(--wed-dot);box-shadow:0 0 0 3px var(--wed-bg),0 0 0 4px var(--wed-dot)}
+.row.wedding .place{color:var(--wed-fg)}
+.row.opt .time::before{background:transparent;border:1.5px dashed var(--muted);box-shadow:none}
+.row.opt .place,.row.opt .do{color:var(--muted)}
+.row.opt.food .time::before{border-color:var(--dot-food)}
+.row.opt.sight .time::before{border-color:var(--dot-sight)}
+
+/* transport connector */
+.move{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:6px 18px 6px 160px;font-size:13px;color:var(--muted);border-top:1px dashed var(--line);border-bottom:1px dashed var(--line);background:repeating-linear-gradient(90deg,transparent 0 6px,var(--stripe) 6px 7px)}
+.move + .row{border-top:none}
+.move span{white-space:nowrap}
+
+/* legend */
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:12.5px;color:var(--muted);margin-top:28px}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.legend .l-train{background:var(--dot-train);border-radius:2px}
+.legend .l-stay{background:var(--dot-stay);box-shadow:0 0 0 1.5px var(--stay-ring)}
+.legend .l-food{background:var(--dot-food)}
+.legend .l-sight{background:var(--dot-sight)}
+.legend .l-opt{background:transparent;border:1.5px dashed var(--muted)}
+
+@media (max-width:640px){
+  .cols{display:none}
+  .row{grid-template-columns:1fr;gap:2px;padding:12px 14px}
+  .time{font-size:12.5px;color:var(--muted)}
+  .place{padding-left:14px}
+  .do{padding-left:14px;font-size:14px}
+  .move{padding:6px 14px 6px 28px}
+  .day-date{font-size:20px}
+}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">Tainan · 12/12 – 12/14</div>
+      <h1>台南婚禮小旅行</h1>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs" aria-label="日期"></nav>
+  <main id="days"></main>
+
+  <div class="legend" aria-label="圖例">
+    <span><i class="l-train"></i>火車</span>
+    <span><i class="l-stay"></i>住宿</span>
+    <span><i class="l-food"></i>餐廳</span>
+    <span><i class="l-sight"></i>景點</span>
+    <span><i class="l-opt"></i>（選）可跳過</span>
+  </div>
+</div>
+
+<script>
+const DAYS = [
+  { id:"d1", date:"12/12（六）", title:"南港 → 台南＋婚禮", items:[
+    {t:"09:43–13:31", p:["自強(3000) 131"], d:["南港 → 臺南"], k:"train"},
+    {m:["🚕 約 5–10 分"]},
+    {t:"13:45–15:25", p:["民生寓居"], d:["Check-in、休息、換裝"], k:"stay"},
+    {m:["🚕 約 5–10 分"]},
+    {t:"15:40", p:["台南晶英酒店"], d:["抵達婚禮會場"], k:"wedding"},
+    {t:"16:15～晚上", p:["台南晶英酒店"], d:["戶外證婚＋晚宴"], k:"wedding"},
+    {m:["🚕 約 5–10 分"]},
+    {t:"晚宴後", p:["神農街（選）"], d:["夜間散步；累的話移到 12/13"], k:"sight opt"},
+    {m:["🚕 約 5 分"]},
+    {t:"晚上", p:["民生寓居"], d:["回住宿休息"], k:"stay"},
+  ]},
+  { id:"d2", date:"12/13（日）", title:"司法博物館＋文學館＋孔廟", items:[
+    {t:"08:10–08:50", p:["客美多台南民生店（選）"], d:["早餐：咖啡＋Morning；水煮蛋／蛋沙拉／紅豆泥擇一"], k:"food opt"},
+    {m:["🚶 約 10 分"]},
+    {t:"09:00–11:15", p:["司法博物館"], d:["參觀＋10:00 貓道"], k:"sight"},
+    {m:["🚶 約 10 分"]},
+    {t:"11:25–12:10", p:["上舜碗粿"], d:["午餐：碗粿＋魚羹"], k:"food"},
+    {m:["🚶 約 5 分"]},
+    {t:"12:15–13:00", p:["文學館周邊"], d:["散步／休息"], k:"sight"},
+    {t:"13:00–15:00", p:["國立臺灣文學館"], d:["看展"], k:"sight"},
+    {m:["🚶 約 5–7 分"]},
+    {t:"15:10–16:10", p:["錫鼓"], d:["下午茶：咖啡＋甜點"], k:"food"},
+    {m:["🚶 約 5 分"]},
+    {t:"16:15–17:00", p:["台南孔廟"], d:["古蹟參觀"], k:"sight"},
+    {m:["🚶 約 5–7 分（進福）","🚕 約 5–10 分（保安路）"]},
+    {t:"17:10–18:10", p:["進福炒鱔魚專家（主選）","保安路米糕（備選）"], d:["進福：乾炒鱔魚／乾炒鱔魚意麵","保安路：米糕＋湯＋滷味／小菜"], k:"food"},
+    {m:["🚕 約 5–10 分"]},
+    {t:"18:20–19:20", p:["神農街（選）"], d:["夜間散步；12/12 已去就跳過"], k:"sight opt"},
+    {m:["🚕 約 5 分"]},
+    {t:"19:30", p:["民生寓居"], d:["回住宿休息"], k:"stay"},
+  ]},
+  { id:"d3", date:"12/14（一）", title:"安平＋林百貨＋回程", items:[
+    {t:"08:10–08:50", p:["客美多台南民生店（選）"], d:["早餐；不餓就跳過"], k:"food opt"},
+    {m:["🚶 約 3–5 分"]},
+    {t:"08:55–09:25", p:["民生寓居"], d:["整理行李、寄放行李"], k:"stay"},
+    {m:["🚕 約 15–20 分"]},
+    {t:"10:00–11:45", p:["安平樹屋＋英商德記洋行"], d:["樹屋＋歷史展覽"], k:"sight"},
+    {m:["🚶 約 3–5 分"]},
+    {t:"11:50–12:10", p:["安平舊聚落"], d:["短程散步"], k:"sight"},
+    {m:["🚶 約 5–10 分"]},
+    {t:"12:15–13:10", p:["阿財牛肉湯"], d:["午餐：牛肉湯＋牛肉料理"], k:"food"},
+    {m:["🚕 約 15–20 分"]},
+    {t:"13:30–14:40", p:["林百貨"], d:["逛歷史建築＋買伴手禮"], k:"sight"},
+    {m:["🚶 約 5 分"]},
+    {t:"14:45–15:00", p:["民生寓居"], d:["拿行李"], k:"stay"},
+    {m:["🚕 約 5–10 分"]},
+    {t:"15:10", p:["台南站"], d:["抵達、休息等車"], k:"train"},
+    {t:"16:26–20:09", p:["自強(3000) 136"], d:["臺南 → 南港"], k:"train"},
+  ]},
+];
+
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const tabs = document.getElementById("tabs");
+const main = document.getElementById("days");
+
+DAYS.forEach((day, i) => {
+  tabs.insertAdjacentHTML("beforeend",
+    `<a href="#${day.id}" aria-label="DAY ${i+1} ${esc(day.date)}"><b>DAY ${i+1}</b></a>`);
+  const rows = day.items.map(it => it.m
+    ? `<div class="move">${it.m.map(x => `<span>${esc(x)}</span>`).join("")}</div>`
+    : `<div class="row ${it.k}">
+         <div class="time">${esc(it.t)}</div>
+         <div class="place">${it.p.map(x => `<span class="alt">${esc(x)}</span>`).join("")}</div>
+         <div class="do">${it.d.map(x => `<span>${esc(x)}</span>`).join("")}</div>
+       </div>`).join("");
+  main.insertAdjacentHTML("beforeend", `
+    <section class="day" id="${day.id}">
+      <div class="day-head">
+        <span class="day-no">DAY ${i+1}</span>
+        <span class="day-date">${esc(day.date)}</span>
+        <span class="day-title">${esc(day.title)}</span>
+      </div>
+      <div class="sheet">
+        <div class="cols"><span>時間</span><span>景點／餐廳</span><span>做什麼</span></div>
+        ${rows}
+      </div>
+    </section>`);
+});
+
+</script>
+
+</body>
+</html>
